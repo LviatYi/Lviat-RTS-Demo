@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4245f53d4d8d6740895c7fef34542ac, type: 3}
+  m_Name: Spearman
+  m_EditorClassIdentifier: 
+  UnitName: Spearman
+  Description: Soldier with a spear, countering cavalry units.
+  Prefab: {fileID: 2867832564741949152, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+  Cost:
+    _food: 60
+    _wood: 20
+    _gold: 0
+  MaxHitPoint: 80
+  AttackRange: 5
+  Damage: 10
+  AttackRate: 1
+  RangeOfVision: 50
+  MoveSpeed: 6
