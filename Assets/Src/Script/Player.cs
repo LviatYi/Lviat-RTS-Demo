@@ -1,14 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public class Player {
-    private int _index;
 
-    public string Name;
-    public string Uid;
-    public int Team;
-    public Color Color;
-    public bool IsAlive;
+[Serializable]
+public class Player {
+    [SerializeField] private int _index;
+    [SerializeField] public string Name;
+    [SerializeField] public string Uid;
+    [SerializeField] public int Team;
+    [SerializeField] public Color Color;
+    [SerializeField] public bool IsAlive;
 
     public int Index {
         get => _index;
@@ -19,8 +20,20 @@ public class Player {
         }
     }
 
-    public Player() {
-        Uid = System.Guid.NewGuid().ToString("N");
+    public Player(int index, string name) : this(index, name, UnityEngine.Color.white) {
+    }
+
+    public Player(int index, string name, Color color, int team = 0, bool isAlive = true) : this(
+        index, name, System.Guid.NewGuid().ToString("N"), color, team, isAlive) {
+    }
+
+    public Player(int index, string name, string uid, Color color, int team = 0, bool isAlive = true) {
+        _index = index;
+        Name = name;
+        Uid = uid;
+        Team = team;
+        Color = color;
+        IsAlive = isAlive;
     }
 
     public static implicit operator int(Player player) {

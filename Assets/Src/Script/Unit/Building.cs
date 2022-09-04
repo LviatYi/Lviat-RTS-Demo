@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : Unit {
@@ -8,6 +7,8 @@ public class Building : Unit {
         Valid,
         Placed,
     }
+
+    //private Tree<Building> _behaviorTree;
 
     private BoxCollider _collider;
     private int _nCollisions;

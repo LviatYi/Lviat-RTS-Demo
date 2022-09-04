@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour, ISelectable {
     private bool _isSelected;
+
     [Header("Intro")] public string UnitName;
     public string Description;
     public GameResource Cost;
-    public UnitData Data;
-    public int Team;
+    [SerializeField] public UnitData Data;
     public int OwnerIndex;
 
     [Header("Unit Ability")] public int MaxHitPoint;
@@ -19,12 +19,11 @@ public class Unit : MonoBehaviour, ISelectable {
     public float RangeOfVision;
 
     [SerializeField] protected GameObject SelectedMarker;
-    public Player Owner;
     public Color Color;
 
-    protected LtBehaviorTree.Tree BehaviorTree;
+    private LtBehaviorTree.Tree<Unit> _behaviorTree;
+
     public Unit Target;
-    public Vector3 TargetPosition;
 
     private void Awake() {
         Init();

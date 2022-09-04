@@ -1,9 +1,10 @@
-﻿using LtBehaviorTree;
+﻿using System;
+using LtBehaviorTree;
 
-public class TaskAttack : Node {
+public class TaskRemoveTarget : Node {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
-            unit.Target.UnderAttack(unit.Damage);
+            unit.Target = null;
         }
 
         return NodeState.Success;

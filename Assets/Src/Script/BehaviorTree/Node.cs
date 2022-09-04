@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace LtBehaviorTree {
     [Flags]
@@ -10,14 +11,35 @@ namespace LtBehaviorTree {
     }
 
     public abstract class Node {
-        protected NodeState State { get; set; }
+        [CanBeNull] private Node _parent;
+        private Dictionary<string, object> _parameters;
 
-        private Node _parent;
-
-        public Node(Node parent = null) {
-            _parent = parent;
+        [CanBeNull]
+        public Node Parent {
+            set {
+                _parent = value;
+                _parameters = _parent is not null ? _parent._parameters : new Dictionary<string, object>();
+            }
+            get => _parent;
         }
 
-        public abstract NodeState Execute();
+        protected Node(Node parent = null) {
+            Parent = parent;
+        }
+
+        public abstract NodeState Tick();
+
+        [CanBeNull]
+        public object GetPara(string paraName) {
+            if (_parameters.TryGetValue(paraName, out var para)) {
+                return para;
+            }
+
+            return null;
+        }
+
+        public void SetPara(string paraName, object para) {
+            _parameters[paraName] = para;
+        }
     }
 }

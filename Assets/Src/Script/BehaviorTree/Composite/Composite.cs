@@ -14,14 +14,12 @@ namespace LtBehaviorTree {
             Children.Remove(node);
         }
 
-        protected Composite(List<Node> children, bool isRandom = false) {
+        protected Composite(List<Node> children, bool isRandom = false, Node parent = null) : base(parent) {
             Children = children;
             _isRandom = isRandom;
-        }
-
-        protected Composite(List<Node> children, Node parent, bool isRandom = false) : base(parent) {
-            Children = children;
-            _isRandom = isRandom;
+            foreach (Node child in children) {
+                child.Parent = this;
+            }
         }
 
         protected void ShuffleChildren() {

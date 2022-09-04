@@ -8,8 +8,8 @@ namespace LtBehaviorTree {
         public Inverter(Node child, Node parent) : base(child, parent) {
         }
 
-        public override NodeState Execute() {
-            var ret = Child?.Execute() switch {
+        public override NodeState Tick() {
+            var ret = Child?.Tick() switch {
                 NodeState.Running => NodeState.Running,
                 NodeState.Success => NodeState.Failure,
                 _ => NodeState.Success

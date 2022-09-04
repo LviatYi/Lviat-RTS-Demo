@@ -1,23 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using LtBehaviorTree;
 
-public class CharacterBt : Tree {
-    private Character _parent;
-
-    public CharacterBt(Node parent = null) : base(parent) {
+public class CharacterBt<T> : Tree<Character> where T : Character {
+    public CharacterBt([NotNull] T mount, Node parent = null) : base(mount, parent) {
     }
 
-    public override void BuildTree() {
-        _root = new Selector(
-            new List<Node>() {
-                new Sequence(new List<Node> { new CheckHasDestination(_parent), new TaskMoveTo(_parent) }),
-                new Selector(new List<Node>() {
-                    new Sequence(new List<Node>() {
-                        new CheckTargetInAttackRange(_parent), new TaskAttack(_parent)
-                    }),
-                    new TaskFollow(_parent)
-                })
+    protected override void OnBuildTree() {
+        Root = new Selector(
+            new() {
+                new Sequence(new() {
+                        new CheckHasTarget(),
+                        new Selector(
+                            new() {
+                                new Sequence(new() {
+                                    new CheckTargetInAttackRange(),
+                                    new Timer(
+                                        new TaskAttack(), Mount.AttackRate)
+                                }),
+                                new Selector(new() {
+                                    new Sequence(new() {
+                                        new CheckAnyTargetInFOVRange(),
+                                        new TaskFollow()
+                                    }),
+                                    new TaskRemoveTarget()
+                                })
+                            }),
+                        new CheckMoving(),
+                        new Sequence(
+                            new() {
+                                new CheckAnyTargetInFOVRange(),
+                                new TaskSetTarget(),
+                            })
+                    }
+                )
             });
     }
 }

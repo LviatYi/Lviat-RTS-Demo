@@ -13,11 +13,6 @@ public class SelectEventArgs {
     public Vector3 MouseCurrentPos;
 }
 
-public class TargetEventArgs {
-    public Vector3 Mouse1StartPos;
-    public Vector3 Mouse1DragDestPos;
-}
-
 public class BuildPrepareEventArgs {
     public BuildingData Data;
 }

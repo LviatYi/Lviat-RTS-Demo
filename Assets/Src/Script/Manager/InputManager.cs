@@ -52,13 +52,6 @@ public class InputManager : Singleton<InputManager> {
         if (Input.GetMouseButtonUp(0)) {
             UIManager.Instance.ClearSelectRect();
         }
-
-        if (Input.GetMouseButtonDown(1)) {
-            EventManager.Instance.OnEvent(Global.TargetEventStr, new TargetEventArgs() {
-                Mouse1StartPos = Input.mousePosition,
-                Mouse1DragDestPos = Input.mousePosition
-            });
-        }
     }
 
     public void OnBuildPrepared(object argsObj) {

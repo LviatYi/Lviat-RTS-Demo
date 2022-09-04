@@ -19,12 +19,13 @@ public class GameController : Singleton<GameController> {
 
     private List<GameObject> _allSelectableGameObjects;
 
-    private List<Unit> _selectedUnits;
+    private Collectivity _selectedUnits;
     public Building BuildingHeld;
     public GameResource OwnResource;
 
     void Awake() {
-        _selectedUnits = new();
+        _selectedUnits = new() { };
+        Team = new Dictionary<int, HashSet<int>>();
         OwnResource = new(GameResource.ResourceInitType.Full);
         for (int i = 0; i < DiplomaticRelations.Length; i++) {
             DiplomaticRelations[i] = new DiplomaticRelation[8];
@@ -37,10 +38,15 @@ public class GameController : Singleton<GameController> {
     void Start() {
         _allSelectableGameObjects = GameObject.FindGameObjectsWithTag("Selectable").ToList();
         EventManager.Instance.AddListener(Global.UiSelectUnitEventStr, OnUnitSelected);
-        EventManager.Instance.AddListener(Global.TargetEventStr, OnTargetSelected);
         EventManager.Instance.AddListener(Global.BuildPrepareEventStr, OnBuildPrepared);
         EventManager.Instance.AddListener(Global.BuildFinishEventStr, OnBuildFinished);
         EventManager.Instance.AddListener(Global.UnitDestroyEventStr, OnUnitDestroyed);
+
+        DevInject();
+    }
+
+    void Update() {
+        _selectedUnits.Invoke();
     }
 
     public void AddPlayer(Player player) {
@@ -56,19 +62,19 @@ public class GameController : Singleton<GameController> {
         }
     }
 
-    public void WarDeclare(Player p1, Player p2) {
+    public void WarDeclare(int p1, int p2) {
         DiplomaticRelations[p1][p2] = DiplomaticRelation.War;
     }
 
-    public void AllyDeclare(Player p1, Player p2) {
+    public void AllyDeclare(int p1, int p2) {
         DiplomaticRelations[p1][p2] = DiplomaticRelation.Allied;
     }
 
-    public void PeaceDeclare(Player p1, Player p2) {
+    public void PeaceDeclare(int p1, int p2) {
         DiplomaticRelations[p1][p2] = DiplomaticRelation.Peace;
     }
 
-    public bool IsEnemy(Player p1, Player p2) {
+    public bool IsEnemy(int p1, int p2) {
         return DiplomaticRelations[p1][p2] == DiplomaticRelation.War;
     }
 
@@ -88,21 +94,8 @@ public class GameController : Singleton<GameController> {
                     }
                 }
             }
-        }
-    }
 
-    public void OnTargetSelected(object argsObj) {
-        if (argsObj is TargetEventArgs args) {
-            Ray ray = _mainCamera.ScreenPointToRay(args.Mouse1StartPos);
-
-            if (Physics.Raycast(ray, out var raycastHit, 1000f, Global.TerrainLayerMaskInt)) {
-                foreach (var unit in _selectedUnits) {
-                    var comp = unit.GetComponent<Character>();
-                    if (comp != null) {
-                        comp.TargetPosition = raycastHit.point;
-                    }
-                }
-            }
+            _selectedUnits.IsSelected = _selectedUnits.Count > 0;
         }
     }
 
@@ -144,7 +137,6 @@ public class GameController : Singleton<GameController> {
         }
     }
 
-
     public void OnUnitDestroyed(object argsObj) {
         if (argsObj is UnitDestroyEventArgs args) {
             _allSelectableGameObjects.Remove(args.DestroyUnit.gameObject);
@@ -152,5 +144,16 @@ public class GameController : Singleton<GameController> {
                 _selectedUnits.Remove(args.DestroyUnit);
             }
         }
+    }
+
+    public void DevInject() {
+        Own = new(1, "Player 1", Global.AvailableColors[Global.ColorBlueStr], 1);
+        Player enemy = new(2, "Player 2", Global.AvailableColors[Global.ColorRedStr], 2);
+
+        AddPlayers(new List<Player> {
+            Own, enemy
+        });
+
+        WarDeclare(Own, enemy);
     }
 }

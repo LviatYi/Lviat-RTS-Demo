@@ -2,19 +2,19 @@
 using UnityEngine;
 
 namespace LtBehaviorTree {
-    public class Delayer : Decorator {
-        private float _delay;
+    public class Timer : Decorator {
+        public float Delay;
         private float _time;
 
-        public Delayer(Node child, float delay = 0.0f) : base(child) {
-            _delay = delay;
+        public Timer(Node child, float delay = 0.0f) : base(child) {
+            Delay = delay;
         }
 
-        public Delayer(Node child, Node parent, float delay = 0.0f) : base(child, parent) {
-            _delay = delay;
+        public Timer(Node child, Node parent, float delay = 0.0f) : base(child, parent) {
+            Delay = delay;
         }
 
-        public override NodeState Execute() {
+        public override NodeState Tick() {
             NodeState ret = NodeState.Failure;
             if (Child == null) {
                 return ret;
@@ -25,9 +25,9 @@ namespace LtBehaviorTree {
                 ret = NodeState.Running;
             }
             else {
-                ret = Child.Execute();
+                ret = Child.Tick();
                 if (ret == NodeState.Success) {
-                    _time = _delay;
+                    _time = Delay;
                 }
             }
 

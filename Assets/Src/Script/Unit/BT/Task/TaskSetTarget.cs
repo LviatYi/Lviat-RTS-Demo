@@ -1,10 +1,10 @@
 ﻿using LtBehaviorTree;
-using UnityEngine;
 
-public class CheckTargetInAttackRange : Node {
+public class TaskSetTarget : Node {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
-            if (Vector3.Distance(unit.Target.transform.position, unit.transform.position) < unit.AttackRange) {
+            if (GetPara(Global.BtParaTargetStr) is Unit target) {
+                unit.Target = target;
                 return NodeState.Success;
             }
         }

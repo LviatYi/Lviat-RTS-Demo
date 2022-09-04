@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.722133
+      value: 11.62
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.177982
+      value: 30.02
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -297,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 2867832564741949152, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_Name
       value: Spearman (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
@@ -363,7 +367,7 @@ GameObject:
   - component: {fileID: 377168177}
   m_Layer: 0
   m_Name: MainCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -460,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.497531
+      value: 7.03
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -468,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.311198
+      value: 15.35
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -501,6 +505,10 @@ PrefabInstance:
     - target: {fileID: 2867832564741949152, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_Name
       value: Spearman (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
@@ -1574,6 +1582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spearman (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
 --- !u!1001 &1646281181
@@ -1589,7 +1601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.620078
+      value: 14.962547
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1597,7 +1609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.913214
+      value: 31.912016
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949087, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1630,6 +1642,10 @@ PrefabInstance:
     - target: {fileID: 2867832564741949152, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_Name
       value: Spearman (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
@@ -1694,6 +1710,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2867832564741949152, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1797,6 +1817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spearman (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6403991651354711473, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
+      propertyPath: OwnerIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6c3b7490c46af248948aab5da4cee0a, type: 3}
 --- !u!1 &1786827116
@@ -1829,6 +1853,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 377168175}
+  Own:
+    _index: 0
+    Name: 
+    Uid: 
+    Team: 0
+    Color: {r: 0, g: 0, b: 0, a: 0}
+    IsAlive: 0
   BuildingHeld: {fileID: 0}
   OwnResource:
     _food: 0

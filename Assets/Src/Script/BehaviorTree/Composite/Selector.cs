@@ -2,13 +2,11 @@
 
 namespace LtBehaviorTree {
     public class Selector : Composite {
-        public Selector(List<Node> children, bool isRandom = false) : base(children) {
+        public Selector(List<Node> children, bool isRandom = false, Node parent = null) : base(children, isRandom,
+            parent) {
         }
 
-        public Selector(List<Node> children, Node parent, bool isRandom = false) : base(children, parent) {
-        }
-
-        public override NodeState Execute() {
+        public override NodeState Tick() {
             NodeState ret = NodeState.Success;
 
             if (_isRandom) {
@@ -16,7 +14,7 @@ namespace LtBehaviorTree {
             }
 
             foreach (Node child in Children) {
-                switch (child.Execute()) {
+                switch (child.Tick()) {
                     case NodeState.Failure:
                         ret = NodeState.Failure;
                         continue;

@@ -2,13 +2,11 @@
 
 namespace LtBehaviorTree {
     public class Sequence : Composite {
-        public Sequence(List<Node> children, bool isRandom = false) : base(children) {
+        public Sequence(List<Node> children, bool isRandom = false, Node parent = null) : base(children, isRandom,
+            parent) {
         }
 
-        public Sequence(List<Node> children, Node parent, bool isRandom = false) : base(children, parent) {
-        }
-
-        public override NodeState Execute() {
+        public override NodeState Tick() {
             NodeState ret = NodeState.Success;
 
             if (_isRandom) {
@@ -16,7 +14,7 @@ namespace LtBehaviorTree {
             }
 
             foreach (Node child in Children) {
-                switch (child.Execute()) {
+                switch (child.Tick()) {
                     case NodeState.Failure:
                         return NodeState.Failure;
                     case NodeState.Running:

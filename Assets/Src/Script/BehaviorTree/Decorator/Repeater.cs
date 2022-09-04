@@ -14,7 +14,7 @@ namespace LtBehaviorTree {
             _count = count;
         }
 
-        public override NodeState Execute() {
+        public override NodeState Tick() {
             NodeState ret = NodeState.Success;
 
             if (Child == null) {
@@ -22,7 +22,7 @@ namespace LtBehaviorTree {
             }
 
             while (_counter < _count) {
-                ret = Child.Execute() == NodeState.Failure ? NodeState.Failure : ret;
+                ret = Child.Tick() == NodeState.Failure ? NodeState.Failure : ret;
                 _counter++;
             }
 

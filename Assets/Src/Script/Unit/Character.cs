@@ -7,12 +7,15 @@ using UnityEngine.AI;
 /// <author>LviatYi</author>
 /// <time>2022/8/17</time>
 public class Character : Unit {
-    [SerializeField] private NavMeshAgent agent;
-
-
-    public bool HasDest => Vector3.Distance(transform.position, TargetPosition) > 0.5f;
+    [SerializeField] public NavMeshAgent Agent;
+    private CharacterBt<Character> _behaviorTree;
 
     [Header("Character Ability")] public float MoveSpeed;
+
+    public Vector3 Destination {
+        set => Agent.destination = value;
+        get => Agent.destination;
+    }
 
     void Awake() {
         Init();
@@ -20,6 +23,7 @@ public class Character : Unit {
 
     // Update is called once per frame
     void Update() {
+        _behaviorTree.Execute();
     }
 
     protected override void Init() {
@@ -28,18 +32,8 @@ public class Character : Unit {
             MoveSpeed = data.MoveSpeed;
         }
 
-        BehaviorTree = new CharacterBt();
-        BehaviorTree.BuildTree();
-    }
-
-
-    public bool MoveTo(Vector3 destination) {
-        agent.destination = destination;
-        if (
-            agent.pathStatus == NavMeshPathStatus.PathInvalid) {
-            return false;
-        }
-
-        return true;
+        Agent = GetComponent<NavMeshAgent>();
+        _behaviorTree = new CharacterBt<Character>(this);
+        _behaviorTree.BuildTree();
     }
 }
