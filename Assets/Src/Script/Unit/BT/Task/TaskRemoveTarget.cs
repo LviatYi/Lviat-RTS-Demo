@@ -1,7 +1,7 @@
 ﻿using System;
 using LtBehaviorTree;
 
-public class TaskRemoveTarget : Node {
+public class TaskRemoveTarget : Task {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
             unit.Target = null;

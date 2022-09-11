@@ -12,13 +12,13 @@ namespace LtBehaviorTree {
 
     public abstract class Node {
         [CanBeNull] private Node _parent;
-        private Dictionary<string, object> _parameters;
+        [CanBeNull] private Dictionary<string, object> _parameters;
 
         [CanBeNull]
         public Node Parent {
             set {
                 _parent = value;
-                _parameters = _parent is not null ? _parent._parameters : new Dictionary<string, object>();
+                _parameters = _parent?._parameters;
             }
             get => _parent;
         }
@@ -31,7 +31,7 @@ namespace LtBehaviorTree {
 
         [CanBeNull]
         public object GetPara(string paraName) {
-            if (_parameters.TryGetValue(paraName, out var para)) {
+            if (_parameters is not null && _parameters.TryGetValue(paraName, out var para)) {
                 return para;
             }
 
@@ -39,7 +39,17 @@ namespace LtBehaviorTree {
         }
 
         public void SetPara(string paraName, object para) {
+            _parameters ??= new();
             _parameters[paraName] = para;
+        }
+
+        public abstract List<Node> GetChildren();
+
+        public void PreOrderSetChildrenParent() {
+            foreach (Node child in GetChildren()) {
+                child.Parent = this;
+                child.PreOrderSetChildrenParent();
+            }
         }
     }
 }

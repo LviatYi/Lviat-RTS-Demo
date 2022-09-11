@@ -1,6 +1,6 @@
 ﻿using LtBehaviorTree;
 
-public class TaskSetTarget : Node {
+public class TaskSetTarget : Task {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
             if (GetPara(Global.BtParaTargetStr) is Unit target) {

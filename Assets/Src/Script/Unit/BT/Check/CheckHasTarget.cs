@@ -1,8 +1,8 @@
 ﻿using LtBehaviorTree;
 
-public class CheckHasTarget : Node {
+public class CheckHasTarget : Check {
     public override NodeState Tick() {
-        if (GetPara(Global.BtParaMountStr) is Unit { Target: { } }) {
+        if (GetPara(Global.BtParaMountStr) is Unit unit && unit.Target != null) {
             return NodeState.Success;
         }
 

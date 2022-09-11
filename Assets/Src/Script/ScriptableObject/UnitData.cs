@@ -11,5 +11,6 @@ public class UnitData : ScriptableObject {
     public float AttackRange;
     public int Damage;
     public float AttackRate;
+
     public float RangeOfVision;
 }

@@ -12,12 +12,12 @@ namespace LtBehaviorTree {
             Child = null;
         }
 
-        protected Decorator(Node child) {
+        protected Decorator(Node child, Node parent = null) : base(parent) {
             Child = child;
         }
 
-        protected Decorator(Node child, Node parent) : base(parent) {
-            Child = child;
+        public override List<Node> GetChildren() {
+            return new List<Node> { Child };
         }
     }
 }

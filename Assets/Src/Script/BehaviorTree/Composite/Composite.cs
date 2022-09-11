@@ -26,5 +26,9 @@ namespace LtBehaviorTree {
             System.Random r = new System.Random();
             Children = Children.OrderBy(_ => r.Next()).ToList();
         }
+
+        public override List<Node> GetChildren() {
+            return Children;
+        }
     }
 }

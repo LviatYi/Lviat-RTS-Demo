@@ -1,7 +1,7 @@
 ﻿using System;
 using LtBehaviorTree;
 
-public class CheckCollectivityIsSelect : Node {
+public class CheckCollectivityIsSelect : Check {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Collectivity collectivity) {
             switch (collectivity.IsSelected) {

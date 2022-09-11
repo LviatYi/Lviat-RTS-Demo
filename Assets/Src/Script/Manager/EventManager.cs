@@ -9,6 +9,7 @@ public class NoArgs {
 }
 
 public class SelectEventArgs {
+    public bool IsSingleSelect;
     public Vector3 Mouse0StartPos;
     public Vector3 MouseCurrentPos;
 }
@@ -29,7 +30,6 @@ public class UnitDestroyEventArgs {
 public class EventManager : Singleton<EventManager> {
     private EventManager() {
     }
-
 
     private Dictionary<string, Action<object>> _events;
 

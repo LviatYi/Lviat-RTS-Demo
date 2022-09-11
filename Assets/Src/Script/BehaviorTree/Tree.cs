@@ -15,6 +15,7 @@ namespace LtBehaviorTree {
         public void BuildTree() {
             OnBuildTree();
             SetPara(Global.BtParaMountStr, Mount);
+            Root.PreOrderSetChildrenParent();
         }
 
         protected abstract void OnBuildTree();

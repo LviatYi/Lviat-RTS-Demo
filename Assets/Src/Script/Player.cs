@@ -8,7 +8,7 @@ public class Player {
     [SerializeField] public string Name;
     [SerializeField] public string Uid;
     [SerializeField] public int Team;
-    [SerializeField] public Color Color;
+    [SerializeField] public Color IdColor;
     [SerializeField] public bool IsAlive;
 
     public int Index {
@@ -27,12 +27,12 @@ public class Player {
         index, name, System.Guid.NewGuid().ToString("N"), color, team, isAlive) {
     }
 
-    public Player(int index, string name, string uid, Color color, int team = 0, bool isAlive = true) {
+    public Player(int index, string name, string uid, Color idColor, int team = 0, bool isAlive = true) {
         _index = index;
         Name = name;
         Uid = uid;
         Team = team;
-        Color = color;
+        IdColor = idColor;
         IsAlive = isAlive;
     }
 

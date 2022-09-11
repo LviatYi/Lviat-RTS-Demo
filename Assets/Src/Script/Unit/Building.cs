@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Building : Unit {
     public enum BuildingPlaceState {
@@ -15,30 +16,32 @@ public class Building : Unit {
     private MeshRenderer _meshRenderer;
     private List<Material> _materials;
     private BuildingPlaceState _placeState;
+    private NavMeshObstacle _obstacle;
 
-    void Awake() {
-        Init();
+    new void Awake() {
+        base.Awake();
+
+        _collider = GetComponent<BoxCollider>();
+        _meshRenderer = GetComponentInChildren<MeshRenderer>();
+        _materials = new List<Material>();
+        _obstacle = GetComponent<NavMeshObstacle>();
+        foreach (Material material in transform.Find("Mesh").GetComponent<Renderer>().materials) {
+            _materials.Add(new Material(material));
+        }
+
+        PlaceState = BuildingPlaceState.Placed;
     }
 
     public BuildingPlaceState PlaceState {
         get => _placeState;
         set {
+            if (PlaceState == value) {
+                return;
+            }
+
             _placeState = value;
             SetMaterials();
         }
-    }
-
-    protected override void Init() {
-        base.Init();
-        _collider = GetComponent<BoxCollider>();
-        _meshRenderer = GetComponentInChildren<MeshRenderer>();
-
-        _materials = new List<Material>();
-        foreach (Material material in transform.Find("Mesh").GetComponent<Renderer>().materials) {
-            _materials.Add(new Material(material));
-        }
-
-        _placeState = BuildingPlaceState.Valid;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -125,7 +128,15 @@ public class Building : Unit {
         return true;
     }
 
+    public void PrepareBuild() {
+        _obstacle.enabled = false;
+        PlaceState = BuildingPlaceState.Valid;
+        IdColorMesh.SetActive(false);
+    }
+
     public void ConfirmBuild() {
+        _obstacle.enabled = true;
         PlaceState = BuildingPlaceState.Placed;
+        IdColorMesh.SetActive(true);
     }
 }

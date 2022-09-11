@@ -10,30 +10,30 @@ public class Character : Unit {
     [SerializeField] public NavMeshAgent Agent;
     private CharacterBt<Character> _behaviorTree;
 
-    [Header("Character Ability")] public float MoveSpeed;
+    public float MoveSpeed {
+        get => Agent.speed;
+        set => Agent.speed = value;
+    }
 
     public Vector3 Destination {
         set => Agent.destination = value;
         get => Agent.destination;
     }
 
-    void Awake() {
-        Init();
+    new void Awake() {
+        base.Awake();
+        Agent = GetComponent<NavMeshAgent>();
+
+        if (Data is CharacterData data) {
+            MoveSpeed = data.MoveSpeed;
+        }
+
+        _behaviorTree = new CharacterBt<Character>(this);
+        _behaviorTree.BuildTree();
     }
 
     // Update is called once per frame
     void Update() {
         _behaviorTree.Execute();
-    }
-
-    protected override void Init() {
-        base.Init();
-        if (Data is CharacterData data) {
-            MoveSpeed = data.MoveSpeed;
-        }
-
-        Agent = GetComponent<NavMeshAgent>();
-        _behaviorTree = new CharacterBt<Character>(this);
-        _behaviorTree.BuildTree();
     }
 }

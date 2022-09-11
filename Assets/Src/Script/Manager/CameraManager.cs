@@ -23,9 +23,9 @@ public class CameraManager : Singleton<CameraManager> {
 
     private Vector3 _forwardVec;
     private Vector3 _rightVec;
-    private bool _isMouseMoveCamera = false;
+    private bool _isMouseMoveCamera;
     private float _mouseExitTime;
-    private float _currentTranslationSpeed = 0f;
+    private float _currentTranslationSpeed;
 
     private void Awake() {
         _mainCamera = GetComponent<Camera>();
@@ -34,7 +34,6 @@ public class CameraManager : Singleton<CameraManager> {
         _maxZoomRatio = Global.MaxZoomRatio;
         _minZoomRatio = Global.MinZoomRatio;
         _zoomSpeed = Global.ZoomSpeed;
-
 
         _forwardVec = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         _rightVec = transform.right;

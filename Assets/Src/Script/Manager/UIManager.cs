@@ -22,23 +22,30 @@ public class UIManager : Singleton<UIManager> {
         _functionalPanel = GameObject.Find("FunctionalPanel");
     }
 
-    void Start() {
+    void OnEnable() {
         EventManager.Instance.AddListener(Global.UiSelectUnitEventStr, OnUnitSelected);
         EventManager.Instance.AddListener(Global.BuildFinishEventStr, OnBuildFinished);
+    }
 
+    void OnDisable() {
+        EventManager.Instance.RemoveListener(Global.UiSelectUnitEventStr, OnUnitSelected);
+        EventManager.Instance.RemoveListener(Global.BuildFinishEventStr, OnBuildFinished);
+    }
+
+    void Start() {
         foreach (BuildingData data in DataHandler.Instance.BuildingDatas) {
             var buttonObj = Instantiate(_buildButtonPrefab, _functionalPanel.transform);
-            var buttonComp = buttonObj.GetComponent<Button>();
+            var buttonCmpt = buttonObj.GetComponent<Button>();
 
-            buttonComp.name = $"{data.name} build button";
+            buttonCmpt.name = $"{data.name} build button";
             BuildingData currentData = data;
-            buttonComp.onClick.AddListener(() => OnBuildButtonClicked(currentData));
+            buttonCmpt.onClick.AddListener(() => OnBuildButtonClicked(currentData));
             buttonObj.GetComponentInChildren<TextMeshProUGUI>().text = data.name;
         }
     }
 
     private void Update() {
-        if (IsBuildingHeld) {
+        if (IsBuildingHeld && GameController.Instance.BuildingHeld != null) {
             Ray ray = _mainCamera.ScreenPointToRay(InputManager.Instance.MouseCurrentPos);
 
             if (Physics.Raycast(ray, out var raycastHit, 1000f, Global.TerrainLayerMaskInt)) {
@@ -50,7 +57,7 @@ public class UIManager : Singleton<UIManager> {
 
 
     private void OnUnitSelected(object argsObj) {
-        if (argsObj is SelectEventArgs args) {
+        if (argsObj is SelectEventArgs { IsSingleSelect: false } args) {
             SetSelectRect(args.Mouse0StartPos, args.MouseCurrentPos);
         }
     }

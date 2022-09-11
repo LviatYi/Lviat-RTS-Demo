@@ -9,42 +9,62 @@ public class Unit : MonoBehaviour, ISelectable {
     public string Description;
     public GameResource Cost;
     [SerializeField] public UnitData Data;
-    public int OwnerIndex;
+    [SerializeField] private int _ownerIndex;
+
+    public int OwnerIndex {
+        set {
+            _ownerIndex = value;
+            Player p = GameController.Instance.GetPlayer(_ownerIndex);
+
+            IdColor = p?.IdColor ?? Global.AvailableColors[Global.ColorWhiteStr];
+        }
+        get => _ownerIndex;
+    }
 
     [Header("Unit Ability")] public int MaxHitPoint;
     public int CurrentHitPoint;
     public float AttackRange;
     public int Damage;
     public float AttackRate;
+    public float AttackInterval => 1 / AttackRate;
     public float RangeOfVision;
 
-    [SerializeField] protected GameObject SelectedMarker;
-    public Color Color;
+    protected GameObject SelectedMarker;
+    protected GameObject IdColorMesh;
+    private Color _idColor;
+
+    public Color IdColor {
+        set {
+            _idColor = value;
+            SetMaterialColor();
+        }
+        get => _idColor;
+    }
 
     private LtBehaviorTree.Tree<Unit> _behaviorTree;
 
     public Unit Target;
 
-    private void Awake() {
-        Init();
-    }
+    protected void Awake() {
+        SelectedMarker = GetComponentsInChildren<Transform>(true)
+            .ToList().First(t => t.gameObject.name == "SelectedMarker").gameObject;
+        IdColorMesh = GetComponentsInChildren<Transform>(true)
+            .ToList().First(t => t.gameObject.name == "IDColorMesh").gameObject;
 
-    protected virtual void Init() {
         UnitName = Data.UnitName;
         Description = Data.Description;
         Cost = Data.Cost;
         MaxHitPoint = Data.MaxHitPoint;
+        CurrentHitPoint = Data.MaxHitPoint;
         AttackRange = Data.AttackRange;
         Damage = Data.Damage;
         AttackRate = Data.AttackRate;
         RangeOfVision = Data.RangeOfVision;
-
-        List<Transform> ts = GetComponentsInChildren<Transform>().ToList();
-        SelectedMarker = GetComponentsInChildren<Transform>(true)
-            .ToList().First(t => t.gameObject.name == "SelectedMarker").gameObject;
-        SetMaterialColor(Color.blue);
     }
 
+    protected void Start() {
+        OwnerIndex = _ownerIndex;
+    }
 
     public bool IsSelected {
         get => _isSelected;
@@ -55,16 +75,15 @@ public class Unit : MonoBehaviour, ISelectable {
     }
 
     private void SetMaterialColor() {
-        SelectedMarker.GetComponent<SpriteRenderer>().color = Color;
+        SelectedMarker.GetComponent<SpriteRenderer>().color = IdColor;
+        IdColorMesh.GetComponent<MeshRenderer>().material.color = IdColor;
     }
 
-    private void SetMaterialColor(Color color) {
-        Color = color;
-        SetMaterialColor();
-    }
-
+    // 面向对象方法论的难题：为什么是被攻击者受到攻击而是攻击者发出攻击？
+    // TODO_LviatYi: 将以 ECS 解决
     public virtual void UnderAttack(int damage) {
         CurrentHitPoint -= damage;
+        Debug.Log($"{this.name} under attack,suffer 5 point damage");
         if (CurrentHitPoint <= 0) {
             Die();
         }
@@ -75,6 +94,7 @@ public class Unit : MonoBehaviour, ISelectable {
             DestroyUnit = this,
         });
 
+        Debug.Log($"{this.name} got killed");
         Destroy(this.gameObject);
     }
 }

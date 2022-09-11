@@ -17,24 +17,24 @@ public class CharacterBt<T> : Tree<Character> where T : Character {
                                 new Sequence(new() {
                                     new CheckTargetInAttackRange(),
                                     new Timer(
-                                        new TaskAttack(), Mount.AttackRate)
+                                        new TaskAttack(), Mount.AttackInterval)
                                 }),
                                 new Selector(new() {
                                     new Sequence(new() {
-                                        new CheckAnyTargetInFOVRange(),
+                                        new CheckTargetInGlobalFovRange(),
                                         new TaskFollow()
                                     }),
                                     new TaskRemoveTarget()
                                 })
                             }),
-                        new CheckMoving(),
-                        new Sequence(
-                            new() {
-                                new CheckAnyTargetInFOVRange(),
-                                new TaskSetTarget(),
-                            })
                     }
-                )
+                ),
+                new CheckMoving(),
+                new Sequence(
+                    new() {
+                        new CheckAnyTargetInFOVRange(),
+                        new TaskSetTarget(),
+                    })
             });
     }
 }

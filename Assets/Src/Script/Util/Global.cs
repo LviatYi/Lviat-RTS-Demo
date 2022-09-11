@@ -3,7 +3,6 @@ using UnityEngine;
 
 public static class Global {
     public static readonly string UiSelectUnitEventStr = "UiSelectUnitEvent";
-    public static readonly string TargetEventStr = "TargetEvent";
     public static readonly string BuildPrepareEventStr = "BuildPrepareEvent";
     public static readonly string BuildFinishEventStr = "BuildFinishEvent";
     public static readonly string UnitDestroyEventStr = "UnitDestroyEvent";
@@ -20,14 +19,14 @@ public static class Global {
 
     public static readonly Dictionary<string, Color> AvailableColors = new() {
         { ColorWhiteStr, Color.white },
-        { ColorBlueStr, new Color(0, 116, 217) },
-        { ColorRedStr, new Color(242, 15, 56) },
-        { ColorGreenStr, new Color(43, 140, 68) },
-        { ColorYellowStr, new Color(242, 206, 22) },
-        { ColorOrangeStr, new Color(242, 116, 5) },
-        { ColorPurpleStr, new Color(58, 58, 56) },
-        { ColorCyanStr, new Color(41, 217, 217) },
-        { ColorGrayStr, new Color(58, 58, 56) },
+        { ColorBlueStr, new Color(0 / 255f, 116 / 255f, 217 / 255f) },
+        { ColorRedStr, new Color(242 / 255f, 15 / 255f, 56 / 255f) },
+        { ColorGreenStr, new Color(43 / 255f, 140 / 255f, 68 / 255f) },
+        { ColorYellowStr, new Color(242 / 255f, 206 / 255f, 22 / 255f) },
+        { ColorOrangeStr, new Color(242 / 255f, 116 / 255f, 5 / 255f) },
+        { ColorPurpleStr, new Color(58 / 255f, 58 / 255f, 56 / 255f) },
+        { ColorCyanStr, new Color(41 / 255f, 217 / 255f, 217 / 255f) },
+        { ColorGrayStr, new Color(58 / 255f, 58 / 255f, 56 / 255f) },
     };
 
     public static readonly string BtParaMountStr = "Mount";

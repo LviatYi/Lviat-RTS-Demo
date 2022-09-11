@@ -1,6 +1,6 @@
 ﻿using LtBehaviorTree;
 
-public class CheckUnitIsMine : Node {
+public class CheckUnitIsMine : Check {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
             if (unit.OwnerIndex == GameController.Instance.Own.Index) {

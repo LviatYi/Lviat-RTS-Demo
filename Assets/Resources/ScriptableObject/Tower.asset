@@ -20,7 +20,7 @@ MonoBehaviour:
     _wood: 100
     _gold: 0
   MaxHitPoint: 500
-  AttackRange: 30
+  AttackRange: 5
   Damage: 0
   AttackRate: 1
-  RangeOfVision: 200
+  RangeOfVision: 30

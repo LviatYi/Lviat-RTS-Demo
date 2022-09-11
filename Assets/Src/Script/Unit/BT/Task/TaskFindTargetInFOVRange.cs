@@ -3,7 +3,7 @@ using System.Linq;
 using LtBehaviorTree;
 using UnityEngine;
 
-public class TaskFindTargetInFOVRange : Node {
+public class TaskFindTargetInFOVRange : Task {
     public override NodeState Tick() {
         if (GetPara(Global.BtParaMountStr) is Unit unit) {
             Vector3 unitPosition = unit.transform.position;

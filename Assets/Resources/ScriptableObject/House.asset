@@ -23,4 +23,4 @@ MonoBehaviour:
   AttackRange: 0
   Damage: 0
   AttackRate: 0
-  RangeOfVision: 50
+  RangeOfVision: 10

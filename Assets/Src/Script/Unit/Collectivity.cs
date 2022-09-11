@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Collectivity : List<Unit> {
@@ -16,20 +17,33 @@ public class Collectivity : List<Unit> {
 
     public CollectivityTypeState CollectivityType;
     public CollectivityOwnerState CollectivityOwner;
+    private bool _behaviorAble;
 
     public int OwnerIndex;
     public bool IsSelected;
-    private readonly CollectivityBt<Collectivity> _behaviorTree;
+    [CanBeNull] private CollectivityBt<Collectivity> _behaviorTree;
 
-    private Collectivity() {
-        _behaviorTree = new CollectivityBt<Collectivity>(this);
-        _behaviorTree.BuildTree();
+    public bool BehaviorAble {
+        get => _behaviorAble;
+        set {
+            if (!_behaviorAble && value) {
+                _behaviorTree = new CollectivityBt<Collectivity>(this);
+                _behaviorTree.BuildTree();
+                _behaviorAble = true;
+            }
+            else if (_behaviorAble && !value) {
+                _behaviorTree = null;
+                _behaviorAble = false;
+            }
+        }
     }
 
     public Collectivity(CollectivityTypeState collectivityTypeState = CollectivityTypeState.Mixed,
-        CollectivityOwnerState collectivityOwnerState = CollectivityOwnerState.Mixed) : this() {
+        CollectivityOwnerState collectivityOwnerState = CollectivityOwnerState.Mixed,
+        bool behaviorAble = false) {
         CollectivityType = collectivityTypeState;
         CollectivityOwner = collectivityOwnerState;
+        BehaviorAble = behaviorAble;
     }
 
     public Collectivity(IEnumerable<Unit> units) : this() {
@@ -42,7 +56,9 @@ public class Collectivity : List<Unit> {
     }
 
     public void Invoke() {
-        _behaviorTree.Execute();
+        BehaviorAble = true;
+
+        _behaviorTree!.Execute();
     }
 
     /// <summary>
@@ -59,5 +75,21 @@ public class Collectivity : List<Unit> {
         }
 
         return ret;
+    }
+
+    public Collectivity ToMineList() {
+        int ownIndex = GameController.Instance.Own.Index;
+        Collectivity ret = new Collectivity();
+
+        ret = new Collectivity(this.Where(value => value.OwnerIndex == ownIndex));
+
+        return ret;
+    }
+
+    public Collectivity FilterMine() {
+        Collectivity temp = new Collectivity(this);
+        this.Clear();
+        this.AddRange(temp.ToMineList());
+        return this;
     }
 }

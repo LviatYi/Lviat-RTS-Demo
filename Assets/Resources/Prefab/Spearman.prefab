@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 6101282296309610296}
   - component: {fileID: 4812395564328952748}
   - component: {fileID: 6857346648916390985}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spearman
   m_TagString: Selectable
   m_Icon: {fileID: 0}
@@ -224,20 +224,15 @@ MonoBehaviour:
     _wood: 0
     _gold: 0
   Data: {fileID: 11400000, guid: fbe9be315487f5d4ab6e68f487262196, type: 2}
-  Team: 0
-  OwnerIndex: 0
+  _ownerIndex: 0
   MaxHitPoint: 0
   CurrentHitPoint: 0
   AttackRange: 0
   Damage: 0
   AttackRate: 0
   RangeOfVision: 0
-  SelectedMarker: {fileID: 0}
-  Color: {r: 0, g: 0, b: 0, a: 0}
   Target: {fileID: 0}
-  TargetPosition: {x: 0, y: 0, z: 0}
-  agent: {fileID: 6101282296309610296}
-  MoveSpeed: 0
+  Agent: {fileID: 0}
 --- !u!195 &6101282296309610296
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -272,7 +267,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -303,7 +298,7 @@ GameObject:
   - component: {fileID: 3968895314837635904}
   - component: {fileID: 7516647027902577752}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: IDColorMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
